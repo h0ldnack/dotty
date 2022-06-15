@@ -10,5 +10,9 @@ function fish_command_not_found
 	/code/voidy/pkgs-search.py $argv[1]
 end
 
-set -a PATH /code/scripts
-set -a PATH ~/.local/bin
+set -ax PATH /code/scripts
+set -ax PATH ~/.local/bin
+set -x SVDIR "$HOME/service"
+set -x ALTERNATE_EDITOR ""
+set -x EDITOR "emacsclient -t"
+set -x VISUAL "emacsclient -c -a emacs"

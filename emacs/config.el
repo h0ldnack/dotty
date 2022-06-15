@@ -1,5 +1,4 @@
 (setq straight-use-package-by-default t)
-(setq gc-cons-threshold 100000000)
 (setq-default tab-width 4)
 (setq inhibit-splash-screen t) 
 (setq delete-by-moving-to-trash t)
@@ -16,6 +15,7 @@
 (setq recentf-max-saved-items 60)
 (run-at-time nil (* 5 60) 'recentf-save-list)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(save-place-mode 1)
 
 (use-package org-super-agenda
       :config (setq org-super-agenda-mode 1))
@@ -23,39 +23,61 @@
 (use-package org-bullets
       :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
-(add-to-list 'org-babel-default-header-args
-		       '(:results . "silent"))
+(setq org-babel-default-header-args
+	      `((:results . "silent")))
 
-(setq org-archive-location "/notes/archive.org")
-(setq org-directory "/notes/")
-(setq org-confirm-babel-evaluate nil)
-(setq org-support-shift-select t)
-(setq org-src-fontify-natively t)
-(setq org-descriptive-links t)
-(setq org-ellipsis "…")
-(org-clock-persistence-insinuate)
-(setq org-clock-out-when-done t)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-(setq org-clock-into-drawer t)
-(setq org-clock-persist t)
-(setq org-clock-in-resume t)
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-(setq org-clock-persist-query-resume nil)
-(setq org-todo-keywords
-	      (quote ((sequence "TODO(t)" "ACTIVE(a)" "|" "DONE(d)"))))
+      (setq org-archive-location "/notes/archive.org")
+      (setq org-directory "/notes/")
+      (setq org-confirm-babel-evaluate nil)
+      (setq org-support-shift-select t)
+      (setq org-src-fontify-natively t)
+      (setq org-descriptive-links t)
+      (setq org-ellipsis "…")
+      (org-clock-persistence-insinuate)
+      (setq org-clock-out-when-done t)
+      (setq org-clock-out-remove-zero-time-clocks t)
+      (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+      (setq org-clock-into-drawer t)
+      (setq org-clock-persist t)
+      (setq org-clock-in-resume t)
+      (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+      (setq org-clock-persist-query-resume nil)
+      (setq org-todo-keywords
+		(quote ((sequence "TODO(t)" "ACTIVE(a)" "|" "DONE(d)"))))
 
-(setq org-agenda-files (quote ("/notes/projects.org"
-							       "/notes/todos.org"
-							       )))
+      (setq org-agenda-files (quote ("/notes/projects.org"
+								 "/notes/todos.org"
+								 )))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)
-       (js . t)
-       (emacs-lisp . t)
-       (shell . t)))
-(setq calendar-week-start-day 1)
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((R . t)
+	 (js . t)
+	 (emacs-lisp . t)
+	 (shell . t)))
+      (setq calendar-week-start-day 1)
+
+(defun dired-open-file ()
+      "In dired, open the file named on this line."
+      (interactive)
+      (let* ((file (dired-get-filename nil t)))
+	(call-process "handlr-open" nil 0 nil file)))
+(eval-after-load "dired" '(progn
+							(define-key dired-mode-map (kbd "C-c o") 'dired-open-file)))
+(setq dired-listing-switches "-aBhl --group-directories-first")
+(defun xah-dired-mode-setup ()
+      "to be run as hook for `dired-mode'."
+      (dired-hide-details-mode 1))
+
+(add-hook 'dired-mode-hook 'xah-dired-mode-setup)
+(use-package all-the-icons-dired)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+(use-package dired-subtree
+      :after dired
+      :config
+      (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
+      (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
 (use-package flyspell
       :hook (text-mode-hook . flyspell-mode))
@@ -166,19 +188,18 @@
 				helm-autoresize-min-height 8))
 
 (use-package ace-window
-      :setq (config aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+      :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 (global-set-key (kbd "M-t") 'ace-window)
 
-(use-package ujelly-theme
-      :config
-      (load-theme 'ujelly t))
-;(set-face-attribute 'default t :font Hack )
-;(set-default-font "hack")
+(use-package dracula-theme)
+(load-theme 'dracula t)
 (set-face-attribute 'default nil
-                  :family "Fira Code"
-                  :height 100
-                  :weight 'normal
-                  :width 'normal)
+					:family "Fira Code"
+					:height 100
+					:weight 'normal
+					:width 'normal)
+(use-package all-the-icons
+      :if (display-graphic-p))
 
 (use-package undo-fu
       :config
