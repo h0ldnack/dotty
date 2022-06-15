@@ -1,5 +1,8 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
+	direnv hook fish | source
+	zoxide init fish --cmd c --hook pwd | source
+	starship init fish | source
 end
 
 

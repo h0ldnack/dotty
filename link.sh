@@ -24,6 +24,9 @@ function link
 			ln -s $D $C
 		end
 	end
+	if test -f starship.toml
+		ln -s starship.toml "$HOME/.config/starship.toml"
+	end
 end
 
 function main

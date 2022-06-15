@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+podman stop jackett
+podman rm jackett

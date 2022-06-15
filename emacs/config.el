@@ -17,36 +17,94 @@
 (run-at-time nil (* 5 60) 'recentf-save-list)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(use-package org-super-agenda
+      :config (setq org-super-agenda-mode 1))
+
+(use-package org-bullets
+      :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
+(add-to-list 'org-babel-default-header-args
+		       '(:results . "silent"))
+
+(setq org-archive-location "/notes/archive.org")
+(setq org-directory "/notes/")
+(setq org-confirm-babel-evaluate nil)
+(setq org-support-shift-select t)
+(setq org-src-fontify-natively t)
+(setq org-descriptive-links t)
+(setq org-ellipsis "…")
+(org-clock-persistence-insinuate)
+(setq org-clock-out-when-done t)
+(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+(setq org-clock-into-drawer t)
+(setq org-clock-persist t)
+(setq org-clock-in-resume t)
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+(setq org-clock-persist-query-resume nil)
+(setq org-todo-keywords
+	      (quote ((sequence "TODO(t)" "ACTIVE(a)" "|" "DONE(d)"))))
+
+(setq org-agenda-files (quote ("/notes/projects.org"
+							       "/notes/todos.org"
+							       )))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+       (js . t)
+       (emacs-lisp . t)
+       (shell . t)))
+(setq calendar-week-start-day 1)
+
 (use-package flyspell
-  :hook (text-mode-hook . flyspell-mode))
+      :hook (text-mode-hook . flyspell-mode))
 
 (use-package flyspell-correct
-  :after flyspell
-  :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
+      :after flyspell
+      :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
 
 (use-package flyspell-correct-helm
-  :after flyspell-correct)
+      :after flyspell-correct)
+
+(with-eval-after-load "ispell"
+      ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+      ;; dictionary' even though multiple dictionaries will be configured
+      ;; in next line.
+      (setenv "LANG" "en_US.UTF-8")
+      (setq ispell-program-name "hunspell")
+      ;; Configure German, Swiss German, and two variants of English.
+      (setq ispell-dictionary "en_US")
+      ;; ispell-set-spellchecker-params has to be called
+      ;; before ispell-hunspell-add-multi-dic will work
+      (ispell-set-spellchecker-params)
+      (ispell-hunspell-add-multi-dic "en_US")
+      ;; For saving words to the personal dictionary, don't infer it from
+      ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+      (setq ispell-personal-dictionary "~/.dotty/hunspell/personal_dict"))
+
+;; The personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it.
+;(unless (file-exists-p ispell-personal-dictionary)
+      ;(write-region "" nil ispell-personal-dictionary nil 0))
 
 (use-package python
-	:custom	(python-shell-interpreter "python"))
-      (use-package poetry
-	      :hook (python-mode . poetry-tracking-mode))
-      (use-package elpy
-	:delight
-	:init
-	(elpy-enable)
-	:config  (setq python-shell-interpreter "ipython"
-				       python-shell-interpreter-args "-i --simple-prompt"))
+      :custom	(python-shell-interpreter "python"))
+(use-package poetry
+      :hook (python-mode . poetry-tracking-mode))
+(use-package elpy
+      :delight
+      :init
+      (elpy-enable)
+      :config  (setq python-shell-interpreter "ipython"
+				 python-shell-interpreter-args "-i --simple-prompt"))
 
-      (when (load "flycheck" t t)
-	(setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-	(add-hook 'elpy-mode-hook 'flycheck-mode))
+(when (load "flycheck" t t)
+      (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
 (add-hook 'elpy-mode-hook (lambda ()
 							(add-hook 'before-save-hook
 									      'elpy-black-fix-code nil t)))
-										      ;(use-package blacken
-	      ;  :hook (python-mode . blacken-mode)
-	      ;  :commands blacken-mode blacken-buffer)
 
 (use-package lsp-mode
       :init
@@ -107,38 +165,30 @@
 				helm-autoresize-max-height 24
 				helm-autoresize-min-height 8))
 
-(add-to-list 'org-babel-default-header-args
-			 '(:results . "silent"))
+(use-package ace-window
+      :setq (config aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+(global-set-key (kbd "M-t") 'ace-window)
 
-;(use-package org-super-agenda
-;	:config (setq org-super-agenda-mode 1))
+(use-package ujelly-theme
+      :config
+      (load-theme 'ujelly t))
+;(set-face-attribute 'default t :font Hack )
+;(set-default-font "hack")
+(set-face-attribute 'default nil
+                  :family "Fira Code"
+                  :height 100
+                  :weight 'normal
+                  :width 'normal)
 
-(setq org-archive-location "/notes/archive.org")
-(setq org-confirm-babel-evaluate nil)
-(setq org-support-shift-select t)
+(use-package undo-fu
+      :config
+      (global-unset-key (kbd "C-z"))
+      (global-set-key (kbd "C-z")   'undo-fu-only-undo)
+      (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
+(use-package undo-fu-session
+      :config
+      (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'")
+		undo-fu-session-compression 'zst
+		undo-fu-session-file-limit 2000))
 
-(org-clock-persistence-insinuate)
-(setq org-clock-out-when-done t)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-(setq org-clock-into-drawer t)
-(setq org-clock-persist t)
-(setq org-clock-in-resume t)
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-(setq org-clock-persist-query-resume nil)
-(setq org-todo-keywords
-	      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
-
-      (setq org-agenda-files (quote ("/notes/dump.org"
-								 "/notes/journal.org"
-								 "/notes/todos"
-								 "/notes/plans"
-								 )))
-
-	(org-babel-do-load-languages
-	 'org-babel-load-languages
-	 '((R . t)
-	       (js . t)
-	       (emacs-lisp . t)
-	       (shell . t)))
-	(setq calendar-week-start-day 1)
+(global-undo-fu-session-mode)

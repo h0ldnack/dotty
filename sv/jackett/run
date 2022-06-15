@@ -1,0 +1,14 @@
+#! /usr/bin/env sh
+
+#fghack
+podman run \
+  --name=jackett \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=America/Los_Angeles \
+  -e AUTO_UPDATE=true \
+  -p 9117:9117 \
+  -v /config/jackett:/config \
+  -v /downloads/torrents:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jackett:latest

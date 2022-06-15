@@ -1,6 +1,8 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export --path PATH:/usr/bin\x1e/usr/sbin\x1e/code/scripts/
+SETUVAR __done_min_cmd_duration:5000
+SETUVAR __done_notification_command:dunstify\x20\x24title\x20\x24message
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
