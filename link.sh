@@ -25,7 +25,7 @@ function link
 		end
 	end
 	if test -f starship.toml
-		ln -s starship.toml "$HOME/.config/starship.toml"
+		ln -s "$HOME/.dotty/starship.toml" "$HOME/.config/starship.toml"
 	end
 end
 
