@@ -1,0 +1,9 @@
+emacs/var/*
+emacs/straight/*
+emacs/elpy/*
+emacs/eln-cache/*
+emacs/undo-fu*
+emacs/transient*
+emacs/places
+emacs/recentf
+mpv/shaders/*
