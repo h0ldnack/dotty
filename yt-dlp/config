@@ -1,0 +1,9 @@
+--no-mtime
+--sponsorblock-remove default
+--convert-subtitles srt
+--xattrs
+--embed-chapters
+--embed-info-json
+--embed-metadata
+--embed-subs
+--remux-video mkv

@@ -129,21 +129,26 @@
 									      'elpy-black-fix-code nil t)))
 
 (use-package lsp-mode
-      :init
-      ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-      (setq lsp-keymap-prefix "C-l")
-      :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-		 (css-mode . lsp-deferred)
-		 (go-mode . lsp-deferred))
-      :config
-      (setq lsp-prefer-flymake nil)
-      (setq lsp-headerline-breadcrumb-enable t)
-      :custom
-      (lsp-idle-delay 0.6)
-      :commands (lsp lsp-deferred))
+	:init
+	;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+	(setq lsp-keymap-prefix "C-l")
+	:hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+		       (css-mode . lsp-deferred)
+		       (go-mode . lsp-deferred))
+	:config
+	(setq lsp-prefer-flymake nil)
+	(setq lsp-headerline-breadcrumb-enable t)
+	:custom
+	(lsp-idle-delay 0.6)
+	:commands (lsp lsp-deferred))
 
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+      (use-package lsp-ui :commands lsp-ui-mode)
+      (use-package helm-lsp :commands helm-lsp-workspace-symbol)
+(add-hook 'go-mode-hook #'lsp-deferred)
+(defun lsp-go-install-save-hooks ()
+      (add-hook 'before-save-hook #'lsp-format-buffer t t)
+      (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 (use-package ws-butler
       :config (add-hook 'prog-mode-hook #'ws-butler-mode))

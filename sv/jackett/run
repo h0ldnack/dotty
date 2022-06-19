@@ -9,6 +9,5 @@ podman run \
   -e AUTO_UPDATE=true \
   -p 9117:9117 \
   -v /config/jackett:/config \
-  -v /downloads/torrents:/downloads \
   --restart unless-stopped \
   lscr.io/linuxserver/jackett:latest

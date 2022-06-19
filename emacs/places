@@ -1,5 +1,7 @@
 ;;; -*- coding: utf-8; mode: lisp-data -*-
-(("/home/nmlss/.dotty/handlr/handlr.toml" . 23)
+(("/home/nmlss/.dotty/sv/emacs_server/run" . 34)
+ ("/home/nmlss/.local/share/applications/emax.desktop" . 26)
+ ("/home/nmlss/.dotty/handlr/handlr.toml" . 23)
  ("/home/nmlss/Downloads/"
   (dired-filename . "/home/nmlss/Downloads/fantasy-1654274312500-1965.jpg"))
  ("/home/nmlss/.dotty/emacs/config.org" . 2198)
