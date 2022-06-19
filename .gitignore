@@ -7,3 +7,4 @@ emacs/transient*
 emacs/places
 emacs/recentf
 mpv/shaders/*
+.old/*
