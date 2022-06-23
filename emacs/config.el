@@ -57,6 +57,9 @@
 	 (shell . t)))
       (setq calendar-week-start-day 1)
 
+(use-package hyperbole
+      :config (hyperbole-mode 1))
+
 (defun dired-open-file ()
       "In dired, open the file named on this line."
       (interactive)

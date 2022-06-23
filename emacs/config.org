@@ -69,7 +69,11 @@ https://org-babel.readthedocs.io/en/latest/header-args/
 	(setq calendar-week-start-day 1)
 #+END_SRC
 
-
+* Hyperbole
+#+BEGIN_SRC emacs-lisp
+  (use-package hyperbole
+	:config (hyperbole-mode 1))
+#+END_SRC
 
 * Dired
 #+BEGIN_SRC emacs-lisp

@@ -1,3 +1,4 @@
 #! /usr/bin/env fish
 
-syncthing serve --config=/config/syncthing --data=/config/syncthing/db --audit=true --auditfile=/config/syncthing/audit.txt
+syncthing serve
+#--config=/config/syncthing --data=/config/syncthing/db --audit=true --auditfile=/config/syncthing/audit.txt

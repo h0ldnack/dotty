@@ -158,7 +158,7 @@ title = Dunst
 class = Dunst
 
 # Mouse
-mouse_left_click = do_action
+#mouse_left_click = do_action
 
 # Round corners
 corner_radius = 3

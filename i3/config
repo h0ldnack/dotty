@@ -196,3 +196,4 @@ exec picom
 exec pipewire
 exec pipewire-pulse
 exec ~/service/background/run
+exec poetry run python /code/twitchi/twitchi/main.py
