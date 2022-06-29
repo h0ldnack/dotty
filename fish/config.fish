@@ -10,9 +10,11 @@ function fish_command_not_found
 	/code/voidy/pkgs-search.py $argv[1]
 end
 
+set -x IPYTHONDIR "$HOME/.config/ipython"
 set -ax PATH /code/scripts
 set -ax PATH ~/.local/bin
 set -ax PATH /usr/local/cuda-11.7/bin
+set -ax PATH /code/pub-scripts
 set -x SVDIR "$HOME/service"
 set -x ALTERNATE_EDITOR ""
 set -x EDITOR "emacsclient -t"

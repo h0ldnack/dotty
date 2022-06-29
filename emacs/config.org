@@ -34,8 +34,8 @@
 https://org-babel.readthedocs.io/en/latest/header-args/
 #+NAME: settings
 #+BEGIN_SRC emacs-lisp
-  (setq org-babel-default-header-args
-		`((:results . "silent")))
+  ;(setq org-babel-default-header-args
+;		`((:results . "silent")))
 
 	(setq org-archive-location "/notes/archive.org")
 	(setq org-directory "/notes/")
@@ -64,6 +64,7 @@ https://org-babel.readthedocs.io/en/latest/header-args/
 	 'org-babel-load-languages
 	 '((R . t)
 	   (js . t)
+	   (python . t)
 	   (emacs-lisp . t)
 	   (shell . t)))
 	(setq calendar-week-start-day 1)
@@ -144,7 +145,7 @@ https://org-babel.readthedocs.io/en/latest/header-args/
 	:delight
 	:init
 	(elpy-enable)
-	:config  (setq python-shell-interpreter "ipython"
+	:config  (setq python-shell-interpreter "/home/nmlss/.local/bin/ipython"
 				   python-shell-interpreter-args "-i --simple-prompt"))
 
   (when (load "flycheck" t t)
@@ -154,6 +155,9 @@ https://org-babel.readthedocs.io/en/latest/header-args/
 							  (add-hook 'before-save-hook
 										'elpy-black-fix-code nil t)))
 #+END_SRC
+
+#+RESULTS:
+| lambda | nil | (add-hook 'before-save-hook 'elpy-black-fix-code nil t) |
 
 * Assorted programming languages
 #+BEGIN_SRC emacs-lisp

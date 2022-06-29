@@ -1,0 +1,184 @@
+/**
+ * ROFI Documentation theme.
+ * User: Qball
+ * Copyright: Dave Davenport
+ */
+
+/** Default settings, every widget inherits from this. */
+* {
+    /** Default background color is transparent. */
+    background-color: transparent;
+    /** Default text is #ffefdf */
+    text-color:       #ffefdf;
+}
+
+/**
+ * Entry box on top. 
+ */
+entry {
+    /** top  and bottom border */
+    /*border: 2px 0px;*/
+    /** #34272e border color */
+    border-color:  #abb2bf;
+    /** Background is #34272e */
+    background-color: #34272e;
+    /** 4px padding on the inside of the border. */
+    padding:       4px;
+    /** when no text is set, show 'Type to filter' */
+    placeholder:       "Type to filter";
+    /** this text is dark #34272e */
+    placeholder-color: #abb2bf;
+    /** inherit font setting from parent */
+    font: inherit;
+    cursor: text;
+}
+
+/**
+ * Input bar
+ */
+inputbar {
+    /** no spacing between widgets */
+    spacing: 0;
+    /** include entry and mode-switcher (removes prompt) */
+    children: [  icon-keyboard, entry, mode-switcher ];
+    /** use monospace font. */
+    font:   "Fira Code 16";
+}
+
+/**
+ * Mode switcher.
+ *  We set it up to 'connect' to reset of input bar.
+ */
+mode-switcher {
+    /** we use spacing between children to draw a 'border' */
+    spacing: 2px;
+    border: 2px;
+    /*border-radius: 0px 4px 4px 0px;*/
+    /** border and background are same color, widget will have desired bg color.*/
+    /** this way the spacing shows as a border */
+    border-color: #34272e;
+    background-color: #34272e;
+    /** inherit font setting from parent */
+    font: inherit;
+}
+
+/**
+ * Buttons in mode switcher.
+ */
+button {
+    background-color: #34272e;
+    border-color: #34272e;
+    /** inherit font setting from parent */
+    font: inherit;
+    cursor: pointer;
+}
+
+/**
+ * Selected buttons in mode switcher.
+ */
+button selected {
+    background-color: #34272e;
+    text-color:       #34272e;
+}
+
+/**
+ * Small icon in inputbar
+ */
+icon-keyboard {
+    /** give it a 2 pixel border, except on the right side. */
+    border:        2px 0px 2px 2px;
+    /** with a radius on the left two corners. */ 
+    /*border-radius: 4px 0px 0px 4px;*/
+    /** add matching border. */
+    border-color: #34272e;
+    /** match background. */
+    background-color: #34272e;
+    /** move icon away from right border. */
+    padding: 0px 10px 0px 10px;
+    /** Only use required space. */
+    expand: false;
+    /** icon is around 1.2 font width */
+    size: 1.2em;
+    /** Icon name, we use symbolic name here */
+    filename: "keyboard";
+}
+
+/**
+ * Main window widget
+ */
+window {
+    /** Place on top center of rofi window on the top center of the screen. */
+    anchor: north;
+    location: north;
+
+    /** 100% screen width */
+    width:            60%;
+
+    /** #34272e transparent color. */
+    background-color: #34272e;
+    /** Small one 1 font width border on inside of window. */
+    padding:           1em;
+
+    /** border */
+    border-color: #abb2bf;
+    border:  0em 0.2em 0.2em;
+}
+
+/**
+ * Main container in the window.
+ */
+mainbox { 
+    /** spacing between widgets */
+    spacing: 0.5em;
+}
+
+/**
+ * listview that shows entries.
+ */
+listview {
+    /** 4 rows. */
+    lines: 4;
+    /** 6 columns */
+    columns: 4;
+    /** add 1 em spacing between items */
+    spacing: 1em;
+    /** Don't reduce columns if less items are available. */
+    fixed-columns: false;
+}
+/**
+ * entry in listview.
+ */
+element {
+    /** clients are packed vertically. */
+    orientation:      vertical;
+    /** 2 px border */
+    border:           2px;
+    /** with 4px radius on corners. */
+    /*border-radius:    4px ;*/
+    border-color:     #abb2bf;
+    background-color: #34272e;
+    /** 4 px padding on the inside of border */
+    cursor: pointer;
+    padding:          2px;
+}
+
+/** selected element */
+element selected {
+    /** highlighted colors */
+    background-color: #34272e;
+    text-color:       #e06c75;
+}
+
+/** Entry icon */
+element-icon {
+    /** change size to 128 pixels. */
+    size: 128px;
+    cursor: inherit;
+}
+
+/** Entry text */
+element-text {
+    /* align font in (horizontally) center */
+    horizontal-align: 0.5;
+    cursor: inherit;
+}

@@ -192,8 +192,12 @@ bar {
         status_command i3status-rs
 }
 
+hide_edge_borders smart
+
 exec picom
 exec pipewire
 exec pipewire-pulse
 exec ~/service/background/run
-exec poetry run python /code/twitchi/twitchi/main.py
+exec twitchi
+exec jellyfin-mpv-shim
+exec /code/selfhosting/main

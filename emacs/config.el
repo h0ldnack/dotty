@@ -23,39 +23,40 @@
 (use-package org-bullets
       :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
-(setq org-babel-default-header-args
-	      `((:results . "silent")))
+;(setq org-babel-default-header-args
+;		`((:results . "silent")))
 
-      (setq org-archive-location "/notes/archive.org")
-      (setq org-directory "/notes/")
-      (setq org-confirm-babel-evaluate nil)
-      (setq org-support-shift-select t)
-      (setq org-src-fontify-natively t)
-      (setq org-descriptive-links t)
-      (setq org-ellipsis "…")
-      (org-clock-persistence-insinuate)
-      (setq org-clock-out-when-done t)
-      (setq org-clock-out-remove-zero-time-clocks t)
-      (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-      (setq org-clock-into-drawer t)
-      (setq org-clock-persist t)
-      (setq org-clock-in-resume t)
-      (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-      (setq org-clock-persist-query-resume nil)
-      (setq org-todo-keywords
-		(quote ((sequence "TODO(t)" "ACTIVE(a)" "|" "DONE(d)"))))
+	(setq org-archive-location "/notes/archive.org")
+	(setq org-directory "/notes/")
+	(setq org-confirm-babel-evaluate nil)
+	(setq org-support-shift-select t)
+	(setq org-src-fontify-natively t)
+	(setq org-descriptive-links t)
+	(setq org-ellipsis "…")
+	(org-clock-persistence-insinuate)
+	(setq org-clock-out-when-done t)
+	(setq org-clock-out-remove-zero-time-clocks t)
+	(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+	(setq org-clock-into-drawer t)
+	(setq org-clock-persist t)
+	(setq org-clock-in-resume t)
+	(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+	(setq org-clock-persist-query-resume nil)
+	(setq org-todo-keywords
+		  (quote ((sequence "TODO(t)" "ACTIVE(a)" "|" "DONE(d)"))))
 
-      (setq org-agenda-files (quote ("/notes/projects.org"
-								 "/notes/todos.org"
-								 )))
+	(setq org-agenda-files (quote ("/notes/projects.org"
+								   "/notes/todos.org"
+								   )))
 
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((R . t)
-	 (js . t)
-	 (emacs-lisp . t)
-	 (shell . t)))
-      (setq calendar-week-start-day 1)
+	(org-babel-do-load-languages
+	 'org-babel-load-languages
+	 '((R . t)
+	   (js . t)
+	   (python . t)
+	   (emacs-lisp . t)
+	   (shell . t)))
+	(setq calendar-week-start-day 1)
 
 (use-package hyperbole
       :config (hyperbole-mode 1))
@@ -121,7 +122,7 @@
       :delight
       :init
       (elpy-enable)
-      :config  (setq python-shell-interpreter "ipython"
+      :config  (setq python-shell-interpreter "/home/nmlss/.local/bin/ipython"
 				 python-shell-interpreter-args "-i --simple-prompt"))
 
 (when (load "flycheck" t t)

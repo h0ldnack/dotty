@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+
+sleep 10s
+/code/selfhosting/main

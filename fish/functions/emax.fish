@@ -1,3 +1,3 @@
 function emax
-	emacsclient -c $argv
+	emacsclient -c $argv &
 end
